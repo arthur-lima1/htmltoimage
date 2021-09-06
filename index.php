@@ -23,7 +23,8 @@ if (isset($_GET['url']) && !empty($_GET['url'])) {
     }
     echo json_encode($imgUrl);
   } catch (Exception $e) {
-    echo json_encode(array('error' => $e->getMessage()));
+    echo json_encode(array('status'=>'error',
+                           'data' => $e->getMessage()));
   }
 } else {
   echo json_encode(array(
