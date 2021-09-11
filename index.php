@@ -21,10 +21,25 @@ if (isset($_GET['url']) && !empty($_GET['url'])) {
     $selector = $_GET['selector'];
   }
 
+  /**
+   * Carrega as chaves de autênticação pelas variáveis de ambiente
+   */
+  Environment::load(__DIR__);
+  $user_id = getenv('USER_ID');
+  $api_key = getenv('API_KEY');
+
+  if($user_id === false || $api_key === false) {
+    throw new Exception('Váriaveis de ambientes incorretas');
+    return;
+  }
+
+  /**
+   * Constrói a classe
+   */
+  $obApi = new Api($user_id, $api_key);
 
   try {
-
-    $imgUrl = Api::generateImage($url, $selector);
+    $imgUrl = $obApi->generateImage($url, $selector);
 
     if ($imgUrl['data'] === null) {
       throw new Exception('invalid params');
@@ -41,11 +56,4 @@ if (isset($_GET['url']) && !empty($_GET['url'])) {
     'status' => 'error',
     'data' => 'Envie a URL que será renderizada'
   ));
-
-  // Environment::load(__DIR__);
-  echo json_encode(getenv());
-  putenv('TESTE=UE AQUI PEGOU');
-  echo json_encode(getenv('TESTE'));
-
-  
 }

@@ -9,10 +9,17 @@ class Api
     /**
      * Chaves de acesso
      */
-    const USER_ID = 'f908fdde-2e58-43ec-8c11-1bd3a786bb78';
-    const API_KEY = '5c41c08e-acdf-4b58-8a65-744b6db2271b';
 
-    public static function generateImage($url, $selector = '')
+    private $user_id;
+    private $api_key;
+
+    public function __construct($user_id, $api_key)
+    {
+        $this->user_id = $user_id;
+        $this->api_key = $api_key;
+    }
+
+    public function generateImage($url, $selector = '')
     {
 
         /**
@@ -26,6 +33,7 @@ class Api
         }
 
 
+
         /**
          * Chamada para a API
          */
@@ -37,7 +45,7 @@ class Api
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
 
         curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_USERPWD, self::USER_ID . ":" . self::API_KEY);
+        curl_setopt($ch, CURLOPT_USERPWD, $this->user_id . ":" . $this->api_key);
 
         $headers = array();
         $headers[] = "Content-Type: application/x-www-form-urlencoded";

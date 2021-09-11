@@ -12,17 +12,16 @@ class Environment
     {
         //VERIFICA SE O .ENV EXISTE
         if (!file_exists($dir . '/.env')) {
+
+            echo json_encode(array('status' => 'error', 'data' => '.env não encontrado'));
+
             return false;
         }
 
-        // $lines = file($dir.'/.env');
-        // foreach ($lines as $line) {
-        //     echo json_encode($line);
-        //     putenv(trim($line));
-        // }
-
-        // echo json_encode(getenv());
-        // echo json_encode(getenv('API_KEY'));
+        $lines = file($dir . '/.env');
+        foreach($lines as $line) {
+            putenv(trim($line));
+        }
 
     }
 }
