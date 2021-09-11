@@ -12,13 +12,13 @@ class Api
     private $user_id;
     private $api_key;
 
-    public function __construct($user_id, $api_key)
+    public function __construct( string $user_id, string $api_key)
     {
         $this->user_id = $user_id;
         $this->api_key = $api_key;
     }
 
-    public function generateImage($url, $selector = '')
+    public function generateImage(string $url, string $selector = '') : array
     {
 
         /**
