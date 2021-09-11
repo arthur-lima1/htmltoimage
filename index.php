@@ -28,10 +28,7 @@ if (isset($_GET['url']) && !empty($_GET['url'])) {
   $user_id = getenv('USER_ID');
   $api_key = getenv('API_KEY');
 
-  if($user_id === false || $api_key === false) {
-    throw new Exception('Váriaveis de ambientes incorretas');
-    return;
-  }
+
 
   /**
    * Constrói a classe
@@ -39,6 +36,12 @@ if (isset($_GET['url']) && !empty($_GET['url'])) {
   $obApi = new Api($user_id, $api_key);
 
   try {
+
+    if($user_id === false || $api_key === false) {
+      throw new Exception('Váriaveis de ambiente incorretas');
+      return;
+    }
+
     $imgUrl = $obApi->generateImage($url, $selector);
 
     if ($imgUrl['data'] === null) {
