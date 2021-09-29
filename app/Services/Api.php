@@ -18,7 +18,7 @@ class Api
         $this->api_key = $api_key;
     }
 
-    public function generateImage(string $url, string $selector = '') : array
+    public function generateImage( $url,  $selector = '') : array
     {
 
         /**
